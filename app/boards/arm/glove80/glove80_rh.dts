@@ -37,6 +37,21 @@
     vbatt: vbatt {
         compatible = "zmk,battery-nrf-vddh";
     };
+
+    // https://tech.alpsalpine.com/e/products/detail/EC12E1220301/#ancBase
+    right_encoder: encoder_right {
+        compatible = "alps,ec11";
+        a-gpios = <&gpio0 21 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; // glove80 right hand gpio header, pin 4, EXT1, right side 2nd row
+        b-gpios = <&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; // glove80 right hand gpio header, pin 5, EXT2, left  side 3rd row
+        steps = <12>;
+        status = "okay";
+    };
+
+    sensors: sensors {
+      compatible = "zmk,keymap-sensors";
+      sensors = <&right_encoder>;
+      triggers-per-rotation = <12>;
+    };
 };
 
 &spi3 {
